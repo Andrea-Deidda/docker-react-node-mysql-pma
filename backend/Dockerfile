@@ -12,8 +12,8 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-# Expose port 3000
-EXPOSE 3000
+# Expose port 3001
+EXPOSE 3001
 
 # Run the command when the container starts
 CMD ["npm", "start"]

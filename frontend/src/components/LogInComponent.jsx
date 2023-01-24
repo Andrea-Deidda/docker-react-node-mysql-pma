@@ -73,7 +73,7 @@ export default function LogInComponent() {
             >
               LogIn
             </Button>
-            <Grid container>
+            <Grid container justifyContent="center">
               <Grid item>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}

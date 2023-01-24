@@ -1,10 +1,8 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,19 +10,50 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import UserService from '../services/UserService'
+import Modal from '@mui/material/Modal';
 
 const theme = createTheme();
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  alignItems: 'center',
+  textAlign: 'center',
+};
+
+
 export default function SignUpComponent() {
-    
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: ''
+  });
+
+  useEffect(() => {
+    UserService
+      .getAll()
+      .then(res => {
+      })
+  }, [])
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    UserService.addUser(formData)
+    setFormData({ username: '', email: '', password: '' });
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -46,46 +75,33 @@ export default function SignUpComponent() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} >
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  required
+                  label="Username"
+                  value={formData.username}
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  onChange={event => setFormData({ ...formData, username: event.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  label="Email"
+                  value={formData.email}
+                  onChange={event => setFormData({ ...formData, email: event.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
                   label="Password"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  value={formData.password}
+                  onChange={event => setFormData({ ...formData, password: event.target.value })}
                 />
               </Grid>
               {/* <Grid item xs={12}>
@@ -97,13 +113,14 @@ export default function SignUpComponent() {
             </Grid>
             <Button
               type="submit"
+              onClick={handleOpen}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="center">
               <Grid item>
                 <Link href="/login" variant="body2">
                   Already have an account? Login
@@ -112,6 +129,22 @@ export default function SignUpComponent() {
             </Grid>
           </Box>
         </Box>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <h5>Utente registrato correttamente </h5>
+            <Button variant="outlined"
+            onClick={handleClose}
+            sx={{my: '1rem'}}
+            >
+              ok
+            </Button>
+          </Box>
+        </Modal>
       </Container>
     </ThemeProvider>
   );
