@@ -1,16 +1,16 @@
 const Sequelize = require('sequelize');
 
 // crea una nuova istanza di Sequelize in locale
-// const sequelize = new Sequelize('demoDb', 'root', 'root', {
-//     host: 'localhost',
-//     dialect: 'mysql',
-// }); 
-
-//per docker
-const sequelize = new Sequelize('demoDb', 'root', 'rootpassword', {
-    host: 'db',
+const sequelize = new Sequelize('demoDb', 'root', 'root', {
+    host: 'localhost',
     dialect: 'mysql',
 }); 
+
+//per docker
+// const sequelize = new Sequelize('demoDb', 'root', 'rootpassword', {
+//     host: 'db',
+//     dialect: 'mysql',
+// }); 
 
 
 // definisci il modello della tabella "utenti"

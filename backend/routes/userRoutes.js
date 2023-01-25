@@ -37,7 +37,31 @@ router.post('/signup', async (req, res) => {
 });
 
 
-//TODO LOGIN
+//LOGIN
+router.post('/login', async (req, res) => {
+    email = req.body.email
+    password = req.body.password
+
+    const checkUser = await User.findOne({
+        where: {
+            email: email
+        }
+    })
+    if(checkUser != null){
+        console.log('utente esistente', checkUser.email)
+        bcrypt.compare(password, checkUser.password, function(err, response){
+            if(!err){
+                if(response){
+                    res.json({status: 'ok', data:{ user: checkUser}})
+                } else {
+                    res.status(401).send("utente o passwrd errato")
+                }
+            }
+        })
+    } else {
+        res.status(401).send("utente o passwrd errato")
+    }
+})
 
 //TODO UPDATE User
 

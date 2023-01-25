@@ -140,6 +140,7 @@ export default function SignUpComponent() {
             <Button variant="outlined"
             onClick={handleClose}
             sx={{my: '1rem'}}
+            href='/'
             >
               ok
             </Button>

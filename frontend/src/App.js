@@ -10,20 +10,20 @@ import {
 } from "react-router-dom";
 
 function App() {
-    return (
-      <Fragment>
+  return (
+    <Fragment>
         <Router>
           <Fragment>
             <Routes>
               <Route path="/login" element={<LogInComponent />} />
               <Route path="/signup" element={<SignUpComponent />} />
               <Route path="/home" element={<HomeComponent />} />
-              <Route path="/" element={<SignUpComponent />} />
+              <Route path="/" element={<HomeComponent />} />
             </Routes>
           </Fragment>
         </Router>
     </Fragment>
-    );
-  }
+  );
+}
 
 export default App;

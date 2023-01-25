@@ -9,9 +9,14 @@ const addUser = (newUser) => {
     return axios.post(`${baseUrl}/signup`, newUser )
 }
 
+const login = (credentials) => {
+    return axios.post(`${baseUrl}/login`, credentials)
+}
+
 const exportedObject = {
     getAll,
-    addUser
+    addUser,
+    login
 }
 
 export default exportedObject
