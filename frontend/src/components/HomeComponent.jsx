@@ -7,7 +7,7 @@ log("ciao")
     return (
 
         <div className="container">
-            <h1> Benvenuto nella home !!!!! </h1>
+            <h1> Benvenuto nella home !!!!! !!</h1>
         </div>
     );
 };
